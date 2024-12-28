@@ -1,5 +1,3 @@
-Here is the consolidated **README.md** based on all the information from the previous responses and discussions, incorporating the necessary changes:
-
 ---
 
 # HSClassifier Project
