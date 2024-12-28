@@ -1,0 +1,14 @@
+# Ignore Go binary and other build artifacts
+/bin
+/obj
+*.exe
+*.log
+*.out
+
+# Ignore Python environment
+.env
+.venv
+__pycache__
+
+# Ignore VSCode and other editor folders
+.vscode
