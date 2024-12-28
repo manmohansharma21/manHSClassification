@@ -1,34 +1,17 @@
-package main
+package hsclassification
 
 import (
 	"fmt"
 	"log"
-	"regexp"
-	"strings"
 
+	"github.com/manmohansharma21/hsclassifier/internal/categorizer"
 	"github.com/xuri/excelize/v2"
 )
 
-// Category and HS Code mapping
-var categories = map[string]string{
-	"laptop":       "HS1234",
-	"laptop toy":   "HS5678",
-	"laptop photo": "HS9101",
-}
-
-// CategorizeDescription categorizes a description based on predefined categories
-func CategorizeDescription(description string) (string, string) {
-	description = strings.ToLower(description) // Case-insensitive matching
-	for category, hscode := range categories {
-		matched, _ := regexp.MatchString(`\b`+regexp.QuoteMeta(category)+`\b`, description)
-		if matched {
-			return category, hscode
-		}
-	}
-	return "Uncategorized", "HS0000"
-}
-
-func main() {
+// This function is not called from anywhere as it is not being used currently
+// Python Pandas being used
+// to attain the same functionality.
+func SameTaskUsingGolang_JustToReferLater() {
 	// Open the input Excel file
 	inputFile := "descriptions.xlsx"
 	outputFile := "categorized_descriptions.xlsx"
@@ -51,7 +34,7 @@ func main() {
 	for i, row := range rows[1:] {
 		if len(row) > 0 {
 			description := row[0]
-			category, hscode := CategorizeDescription(description)
+			category, hscode := categorizer.CategorizeDescription(description)
 			rows[i+1] = append(row, category, hscode)
 		}
 	}

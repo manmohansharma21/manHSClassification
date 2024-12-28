@@ -10,7 +10,7 @@ def convert_to_csv():
     print("File converted to descriptions.csv")
     
     # Print the content
-print(df)
+    print(df)
 
 if __name__ == "__main__":
     convert_to_csv()
