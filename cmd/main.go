@@ -24,8 +24,8 @@ func main() {
 	queriesString := strings.Join(queries, ",")
 
 	// Run the Python script to process the queries
-	//cmd := exec.Command("python3", "scripts/process_query_embedding.py", queriesString) //--> Emebdding using Transformer Python library
-	cmd := exec.Command("python3", "scripts/generate_embeddings_openai.py", queriesString)
+	//cmd := exec.Command("python3", "scripts/process_query_embedding.py", queriesString) //--> Emebddinga generation using Transformer Python library
+	cmd := exec.Command("python3", "scripts/generate_embeddings_openai.py", queriesString) //--> Using openapi for embeddings generation
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
 
