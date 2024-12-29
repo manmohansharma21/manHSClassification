@@ -4,9 +4,16 @@ import openai
 import json
 import sys
 from sklearn.metrics.pairwise import cosine_similarity
+from dotenv import load_dotenv
+import os
+
+# Load environment variables from .env file
+load_dotenv()
 
 # Set up OpenAI API key
-openai.api_key = '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'  # Replace with your OpenAI API key
+# Get the API key from environment variable
+openai.api_key = os.getenv("OPENAI_API_KEY")
+
 
 def generate_query_embedding(query):
     """
