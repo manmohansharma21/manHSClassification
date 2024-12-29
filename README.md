@@ -1,44 +1,84 @@
 ---
-
 # HSClassifier Project
+
+## Overview
+This project automates the classification of product descriptions using embeddings and query matching.
+
+## Project Structure
+The project is divided into the following main components:
+- `cmd/`: Contains the Go entry point (`main.go`).
+- `internal/`: Contains core Go business logic for classification, embeddings, and query handling.
+- `scripts/`: Contains Python scripts for generating data and embeddings.
+- `data/`: Stores generated and processed data files.
+- `test/`: Contains unit and integration tests for both Go and Python components.
+
+## Setup
+1. Clone the repository.
+2. Install Python dependencies: `pip install -r requirements.txt`
+3. Install Go dependencies: `go mod tidy`
+4. Run the full workflow using `make`.
+
+## Usage
+The `Makefile` provides the following steps:
+- `generate-data`: Generates sample data for testing.
+- `generate-master-embeddings`: Generates master embeddings for descriptions.
+- `generate-query-embedding`: Generates embeddings for a query.
+- `run-go`: Runs the Go application.
+- `clean`: Cleans up generated files.
+
+## Architecture
+The system is designed to process product descriptions and match them with input queries. It involves:
+- **Embedding Generation**: Using pre-trained models to generate vector representations for text.
+- **Classification**: Comparing query embeddings to master embeddings to find the best match.
+- **Go Application**: Handles the classification logic and serves as the main application interface.
+
+## Testing
+Unit and integration tests are provided to ensure the correctness of the logic.
+
 
 ## Overview
 
 The **HSClassifier** project processes product descriptions, categorizes them, and maps them to appropriate **HS codes**. It leverages both Go and Python scripts for different tasks: generating test data, processing Excel files, converting data formats, and categorizing descriptions. The goal is to demonstrate how Go and Python can work together in a data processing pipeline.
-
 ---
-
 ## Project Structure
 
 The project follows a modular structure to separate concerns and improve maintainability:
 
 ```
-hsclassifier/
+HSClassifier/
+├── Makefile                     # Automates the workflow with clear steps
 ├── cmd/
-│   └── main.go                     # Entry point for the Go application
-│   └── main_test.go                # Unit tests for main.go (in the same directory)
+│   └── main.go                  # Entry point for the Go application, handles logic and routes
 ├── internal/
-│   ├── categorizer/                # Categorization logic and tests
-│   │   ├── categorizer.go
-│   │   └── categorizer_test.go
-│   └── runner/                     # Python script runner and tests
-│       ├── runner.go
-│       └── runner_test.go
-├── scripts/                         # Python scripts for data handling
-│   ├── create_sample_data.py
-│   ├── convert_to_csv.py
-│   └── process_data.py
-├── data/                            # Sample input/output data files
-│   └── descriptions.xlsx
-├── test/                            # Unit tests for the Go and Python components
-│   ├── test_convert_to_csv.py
-│   ├── test_process_data.py
-│   ├── test_create_sample_data.py
-│   ├── test_main.go
-│   └── integration_test.go
-├── go.mod                           # Go module file
-├── go.sum                           # Go module checksum file
-└── README.md                        # Project documentation
+│   ├── hsclassification/
+│   │   ├── classification.go    # Main classification logic, including algorithms for matching queries to descriptions
+│   │   ├── embeddings.go        # Vectorization and embedding logic, uses pre-trained models for text embeddings
+│   │   ├── master_loader.go     # Logic for loading and processing master embeddings from CSV/JSON files
+│   │   ├── master_table.go      # Handles the creation and updating of the master table with processed data
+│   │   ├── query_handler.go     # Handles runtime query embedding and compares with master embeddings
+├── scripts/                     # Python scripts for data handling, preprocessing, and embedding generation
+│   ├── create_sample_data.py    # Generates test data for classification
+│   ├── generate_master_embeddings.py # Creates master embeddings for descriptions
+│   ├── generate_query_embedding.py  # Processes input query embeddings for comparison
+│   ├── convert_to_csv.py        # Converts processed data to CSV format for Go application consumption
+│   ├── process_data.py          # Processes descriptions or other input data, preparing them for embedding generation
+├── data/                        # Sample input/output data files, including descriptions, embeddings, and query results
+│   ├── descriptions.xlsx        # Original descriptions used for generating embeddings
+│   ├── master_table.csv         # Master table with processed data for comparison
+│   ├── master_embeddings.csv    # Generated master embeddings for descriptions
+│   ├── query_embedding.json     # Generated query embedding for the input query
+├── test/                        # Unit tests for Go and Python components to ensure functionality
+│   ├── test_create_sample_data.py  # Unit tests for the 'create_sample_data.py' script
+│   ├── test_convert_to_csv.py     # Unit tests for the 'convert_to_csv.py' script
+│   ├── test_process_data.py       # Unit tests for the 'process_data.py' script
+│   ├── main_test.go             # Unit tests for the 'main.go' Go application logic
+│   ├── integration_test.go      # Integration tests for end-to-end validation of the workflow
+├── go.mod                       # Go module file for dependency management
+├── go.sum                       # Dependency checksums to ensure consistent builds
+└── README.md                    # Project documentation, including setup instructions, usage, and architecture
+
+
+
 ```
 
 ## Components
@@ -217,7 +257,6 @@ This project is licensed under the man_MIT License.
 - [Architecture Overview](docs/architecture.md): Technical architecture or design documents.
 
 ---
-
 
 Note:
 

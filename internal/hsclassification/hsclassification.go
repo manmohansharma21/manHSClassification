@@ -5,6 +5,8 @@ import (
 	"fmt"
 	"log"
 
+	// "github.com/manmohansharma21/hsclassifier/internal/hsclassification/embeddings"
+	// "github.com/manmohansharma21/hsclassifier/internal/hsclassification/master_table"
 	"github.com/manmohansharma21/hsclassifier/internal/runner"
 )
 
@@ -20,7 +22,7 @@ func ProcessData() error {
 	return runner.RunPythonScript("scripts/process_data.py")
 }
 
-func RunHSCodeClassification() {
+func RunHSCodeClassification_older() {
 	fmt.Println("Starting HS Code Mapper...")
 
 	// Step 1: Generate test data
@@ -39,4 +41,23 @@ func RunHSCodeClassification() {
 	}
 
 	fmt.Println("HS Code classification process completed successfully.")
+}
+
+func RunHSCodeClassification(query string) {
+	// Load master table data
+	products := GetProductDescriptions() //master_table.GetProductDescriptions()
+
+	// Generate embeddings for the query
+	queryVector := GenerateVector(query) //embeddings.GenerateVector(query)
+
+	// Find the best match
+	bestMatch, bestScore := FindNearest(queryVector, products) // embeddings.FindNearest(queryVector, products)
+
+	if bestScore > 0.7 {
+		fmt.Printf("Best match: %s\n", bestMatch)
+		hsCode := GetHSCodeForDescription(bestMatch) //master_table.GetHSCodeForDescription(bestMatch)
+		fmt.Printf("HSCode: %s\n", hsCode)
+	} else {
+		fmt.Println("No close match found. Please refine your query.")
+	}
 }

@@ -33,8 +33,9 @@ func TestRunHSCodeClassification(t *testing.T) {
 	// If your functions depend on runner.RunPythonScript directly, you need to refactor them
 	// to accept the runner interface as a dependency.
 
+	query := "I want a laptop case"
 	// We call the function that runs the classification
-	RunHSCodeClassification()
+	RunHSCodeClassification(query)
 
 	// Assert that all expectations were met
 	mockRunner.AssertExpectations(t)
