@@ -1,0 +1,64 @@
+Output with Transformer Pythn library for Embedding:
+
+Manmohans-MacBook-Air:HSClassifier manmohansharma$ make
+Step 1: Generating test data...
+python3 scripts/create_sample_data.py
+Sample descriptions.xlsx created in 'data/' directory.
+Test data generated successfully. Check the 'data/' directory for 'descriptions.xlsx'.
+Step 2: Generating master embeddings...
+python3 scripts/generate_master_embeddings.py
+Loaded descriptions.xlsx successfully.
+Columns in descriptions DataFrame: Index(['description'], dtype='object')
+Delimiter detected: ','
+Loaded master_table.csv successfully.
+Columns in master table DataFrame: Index(['product_name', 'hscode', 'description'], dtype='object')
+Columns after reloading with tab delimiter: Index(['product_name', 'hscode', 'description'], dtype='object')
+Generated 16 embeddings for product descriptions.
+Embeddings generated and saved to 'data/master_embeddings.csv'.
+Master embeddings generated successfully. Check the 'data/' directory for 'master_embeddings.csv'.
+Step 3: Generating query embeddings for input queries...
+python3 scripts/process_query_embedding.py
+Arguments passed to the script: ['scripts/process_query_embedding.py']
+No queries provided.
+Query embeddings generated successfully. Check the console output for results.
+Step 4: Running Go application...
+go run cmd/main.go
+Arguments passed to the script: ['scripts/process_query_embedding.py', 'I want a laptop charger,laptop cover,laptop toy,laptop machine,laptop stand,laptop sleeve,laptop charger']
+Loaded master_embeddings.csv successfully.
+Master embeddings loaded: (16, 384)
+Processing query: I want a laptop charger
+Query embedding generated for: I want a laptop charger
+Best match: Laptop Charger
+HSCode: 85044090
+
+Processing query: laptop cover
+Query embedding generated for: laptop cover
+Best match: Laptop Cover
+HSCode: 42021910
+
+Processing query: laptop toy
+Query embedding generated for: laptop toy
+Best match: Laptop Toy
+HSCode: 95030030
+
+Processing query: laptop machine
+Query embedding generated for: laptop machine
+Best match: Laptop Machine
+HSCode: 84713010
+
+Processing query: laptop stand
+Query embedding generated for: laptop stand
+Best match: Laptop Stand
+HSCode: 39269099
+
+Processing query: laptop sleeve
+Query embedding generated for: laptop sleeve
+Best match: Laptop Sleeve
+HSCode: 42021210
+
+Processing query: laptop charger
+Query embedding generated for: laptop charger
+Best match: Laptop Charger
+HSCode: 85044090
+
+Go application executed successfully.
